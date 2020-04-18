@@ -5,6 +5,7 @@ import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../screens/HomeScreen";
 import CircuitScreen from '../screens/CircuitScreen';
 import HistoryScreen from "../screens/HistoryScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = "Home";
@@ -43,7 +44,17 @@ export default function BottomTabNavigator({ navigation, route }) {
                 options={{
                     title: "History",
                     tabBarIcon: ({ focused }) => (
-                        <TabBarIcon focused={focused} name="book" />
+                        <TabBarIcon focused={focused} name="calendar" />
+                    ),
+                }}
+            />
+            <BottomTab.Screen
+                name="Profile"
+                component={ProfileScreen}
+                options={{
+                    title: "Profile",
+                    tabBarIcon: ({ focused }) => (
+                        <TabBarIcon focused={focused} name="person" />
                     ),
                 }}
             />
@@ -62,5 +73,7 @@ function getHeaderTitle(route) {
             return "History";
         case 'Circuit':
             return 'Set up your circuit'
+        case 'Profile':
+            return 'Profile'
     }
 }
