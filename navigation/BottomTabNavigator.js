@@ -1,14 +1,14 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import * as React from "react";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import * as React from 'react';
 
-import TabBarIcon from "../components/TabBarIcon";
-import HomeScreen from "../screens/HomeScreen";
+import TabBarIcon from '../components/TabBarIcon';
+import HomeScreen from '../screens/HomeScreen';
 import CircuitScreen from '../screens/CircuitScreen';
-import HistoryScreen from "../screens/HistoryScreen";
-import ProfileScreen from "../screens/ProfileScreen";
+import HistoryScreen from '../screens/HistoryScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const BottomTab = createBottomTabNavigator();
-const INITIAL_ROUTE_NAME = "Home";
+const INITIAL_ROUTE_NAME = 'Home';
 
 export default function BottomTabNavigator({ navigation, route }) {
     // Set the header title on the parent stack navigator depending on the
@@ -19,42 +19,42 @@ export default function BottomTabNavigator({ navigation, route }) {
     return (
         <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
             <BottomTab.Screen
-                name="Home"
+                name='Home'
                 component={HomeScreen}
                 options={{
-                    title: "Home",
+                    title: 'Home',
                     tabBarIcon: ({ focused }) => (
-                        <TabBarIcon focused={focused} name="home" />
+                        <TabBarIcon focused={focused} name='home' />
                     ),
                 }}
             />
             <BottomTab.Screen
-                name="Circuit"
+                name='Circuit'
                 component={CircuitScreen}
                 options={{
-                    title: "Circuit",
+                    title: 'Circuit',
                     tabBarIcon: ({ focused }) => (
-                        <TabBarIcon focused={focused} name="sync" />
+                        <TabBarIcon focused={focused} name='sync' />
                     ),
                 }}
             />
             <BottomTab.Screen
-                name="History"
+                name='History'
                 component={HistoryScreen}
                 options={{
-                    title: "History",
+                    title: 'History',
                     tabBarIcon: ({ focused }) => (
-                        <TabBarIcon focused={focused} name="calendar" />
+                        <TabBarIcon focused={focused} name='calendar' />
                     ),
                 }}
             />
             <BottomTab.Screen
-                name="Profile"
+                name='Profile'
                 component={ProfileScreen}
                 options={{
-                    title: "Profile",
+                    title: 'Profile',
                     tabBarIcon: ({ focused }) => (
-                        <TabBarIcon focused={focused} name="person" />
+                        <TabBarIcon focused={focused} name='person' />
                     ),
                 }}
             />
@@ -67,13 +67,13 @@ function getHeaderTitle(route) {
         route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
 
     switch (routeName) {
-        case "Home":
-            return "Home";
-        case "History":
-            return "History";
+        case 'Home':
+            return 'Home';
+        case 'History':
+            return 'History';
         case 'Circuit':
-            return 'Set up your circuit'
+            return 'Set up your circuit';
         case 'Profile':
-            return 'Profile'
+            return 'Profile';
     }
 }

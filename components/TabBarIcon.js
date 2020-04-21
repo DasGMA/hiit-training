@@ -9,7 +9,8 @@ export default function TabBarIcon(props) {
     <Ionicons
       name={Platform.select({
         ios: `ios-${props.name}`,
-        android: `md-${props.name}`})}
+        android: `md-${props.name}`
+      })}
       size={30}
       style={{ marginBottom: -3 }}
       color={props.focused ? Colors.tabIconSelected : Colors.tabIconDefault}

@@ -9,3 +9,10 @@ export default function ProfileScreen() {
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fafafa'
+    }
+})
