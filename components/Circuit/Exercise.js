@@ -3,16 +3,25 @@ import { View, Text, StyleSheet } from 'react-native';
 
 export default function Exercise(props) {
     return (
-        <View style={style.container}>
-            <Text style={styles.text}>{props.exerciseName}</Text>
-            <Text style={styles.time}>{props.exerciseTime}</Text>
+        <View style={styles.container}>
+            <View style={styles.info}>
+                <Text style={styles.text}>{props.exerciseName}</Text>
+                <Text style={styles.time}>Duration: {props.exerciseDuration}s</Text>
+            </View>
+            
         </View>
     )
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        flex: 1
+    },
+    info: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        flex: 1
     },
     text: {
 

@@ -3,7 +3,6 @@ import { View, StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import ExerciseSet from "./ExerciseSet";
 import { useSelector } from "react-redux";
-import AddNewSet from "./AddNewSet";
 
 export default function ExerciseList() {
     const circuit = useSelector(
@@ -13,8 +12,11 @@ export default function ExerciseList() {
     const listRef = useRef()
 
     const exercises = () => {
-        return Object.entries(circuit).map((exercise, index) => (
-            <ExerciseSet key={index} exerciseNumber={index + 1} />
+        return Object.entries(circuit).map((set, index) => (
+            <ExerciseSet 
+                key={index} 
+                set={set}
+            />
         ));
     };
 
@@ -28,5 +30,5 @@ export default function ExerciseList() {
 }
 
 const styles = StyleSheet.create({
-    
+
 });

@@ -4,18 +4,15 @@ import AddButton from './AddButton';
 import { useDispatch } from 'react-redux';
 import { addExerciseSet } from '../../Redux/Actions/CircuitActions/CircuitActions';
 
-export default function AddNewSet(props) {
+export default function AddNewSet() {
     const dispatch = useDispatch();
-    const addSet = () => {
-        dispatch(addExerciseSet())
-        props.scroll
-    };
+    const addSet = () => dispatch(addExerciseSet());
     return (
         <View style={styles.container}>
             <AddButton 
                 name='add-circle'
                 size={30}
-                bottomText='Add new Set'
+                bottomText='Add Set'
                 onPress={addSet}
             />
         </View>
