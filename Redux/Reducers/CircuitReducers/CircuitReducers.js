@@ -32,10 +32,6 @@ const initialState = {
         'Set 4': {
             setDuration: 0,
             exercises: {}
-        },
-        'Set 5': {
-            setDuration: 0,
-            exercises: {}
         }
     }
 }
@@ -78,7 +74,7 @@ const CircuitReducers = (state = initialState, action) => {
                 ...state,
                 totalDuration: payload
             };
-            
+
         default:
             return {
                 ...state
