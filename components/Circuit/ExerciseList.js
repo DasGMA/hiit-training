@@ -9,7 +9,7 @@ export default function ExerciseList() {
         (state) => state.CircuitReducer.CircuitReducers.circuit
     );
 
-    const listRef = useRef()
+    const listRef = useRef();
 
     const exercises = () => {
         return Object.entries(circuit).map((set, index) => (

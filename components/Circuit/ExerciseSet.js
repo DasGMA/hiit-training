@@ -6,9 +6,11 @@ import Exercise from './Exercise';
 import { deleteExerciseSet, addExerciseModal, selectSet } from '../../Redux/Actions/CircuitActions/CircuitActions';
 
 export default function ExerciseSet(props) {
-    const set = Object.values(props.set[1]) || [];
-    const dispatch = useDispatch();
+    const set = Object.values(props.set[1].exercises) || [];
+    const setDuration = props.set[1].setDuration;
 
+    const dispatch = useDispatch();
+    console.log(props.set)
     const exercises = () => set.map(exercise => (
         <Exercise
             key={exercise.exerciseName}
@@ -26,12 +28,6 @@ export default function ExerciseSet(props) {
         dispatch(addExerciseModal());
         dispatch(selectSet(props.set[0]));
     }
-
-    const setDuration = () => {
-        return set.reduce((acc, exercise) => {
-            return acc + parseInt(exercise.exerciseDuration);
-        }, 0);
-    };
 
     return (
         <View style={styles.container}>
@@ -53,7 +49,7 @@ export default function ExerciseSet(props) {
                     rightText='Add exercise'
                     onPress={activateAddExerciseModal}
                 />
-                <Text>Set duration: {setDuration()}s</Text>
+                <Text>Set duration: {setDuration}s</Text>
             </View>
         </View>
     )
@@ -78,6 +74,7 @@ const styles = StyleSheet.create({
     },
     bottomRow: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        marginTop: 20
     }
 })

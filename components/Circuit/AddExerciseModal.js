@@ -45,33 +45,41 @@ export default function AddExerciseModal() {
             onRequestClose={closeModal}
         >
             <View style={styles.container}>
-                <Text>Add exercise for {setName}</Text>
-                <View style={styles.inputContainer}>
-                    <TextInput 
-                        placeholder='Enter exercise'
-                        onChangeText={(text) => setExerciseName(text)}
-                        value={exerciseName}
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <TextInput 
-                        placeholder='Enter exercise duration'
-                        onChangeText={(text) => setExerciseDuration(text)}
-                        value={exerciseDuration}
-                    />
+                <Text style={styles.setName}>Add exercise for {setName}</Text>
+                <View style={styles.inputs}>
+                    <View style={{...styles.inputContainer, flex: 1, marginRight: 5}}>
+                        <TextInput 
+                            placeholder='Enter exercise'
+                            onChangeText={(text) => setExerciseName(text)}
+                            value={exerciseName}
+                            placeholderTextColor='#000'
+                            style={styles.inputStyle}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <TextInput 
+                            placeholder='0'
+                            onChangeText={(text) => setExerciseDuration(text)}
+                            value={exerciseDuration}
+                            placeholderTextColor='#000'
+                            style={styles.inputStyle}
+                        />
+                    </View>
                 </View>
                 <View style={styles.buttonsView}>
                     <AddButton
                         name='close-circle-outline'
                         bottomText='Cancel'
                         onPress={closeModal}
-                        size={20}
+                        size={30}
+                        color='red'
                     />
                     <AddButton
                         name='save'
                         bottomText='Save'
-                        size={20}
+                        size={30}
                         onPress={saveExercise}
+                        color='green'
                     />
                 </View>
             </View>
@@ -83,11 +91,22 @@ const styles = StyleSheet.create({
     container: {
         padding: 10,
         backgroundColor: '#d3d3d3',
-        justifyContent: 'center',
         flex: 1
+    },
+    setName: {
+        fontSize: 30,
+        textAlign: 'center',
+        paddingTop: 10,
+        paddingBottom: 10
+    },
+    inputs: {
+        flexDirection: 'row'
     },
     inputContainer: {
         borderWidth: 1
+    },
+    inputStyle: {
+        padding: 5
     },
     buttonsView: {
         flexDirection: 'row',

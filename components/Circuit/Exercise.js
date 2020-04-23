@@ -16,15 +16,19 @@ export default function Exercise(props) {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        flex: 1
+        flex: 1,
+        paddingBottom: 5,
+        paddingTop: 5
     },
     info: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        flex: 1
+        flex: 1,
+        borderBottomWidth: 1,
+        borderBottomColor: '#dddddd'
     },
     text: {
-
+        fontSize: 16
     },
     time: {
 

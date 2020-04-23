@@ -1,11 +1,11 @@
 import {
     ADD_EXERCISE_SET,
     ADD_EXERCISE,
-    SET_EXERCISE_DURATION,
-    SET_EXERCISE_NAME,
     DELETE_EXERCISE_SET,
     ADD_EXERCISE_MODAL,
-    SELECT_SET
+    SELECT_SET,
+    SET_CIRCUIT_DURATION,
+    SET_TOTAL_DURATION
 } from '../../Actions/CircuitActions/CircuitActions';
 
 const initialState = {
@@ -17,11 +17,26 @@ const initialState = {
     addExerciseModal: false,
     selectedSet: '',
     circuit: {
-        'Set 1': {},
-        'Set 2': {},
-        'Set 3': {},
-        'Set 4': {},
-        'Set 5': {}
+        'Set 1': {
+            setDuration: 0,
+            exercises: {}
+        },
+        'Set 2': {
+            setDuration: 0,
+            exercises: {}
+        },
+        'Set 3': {
+            setDuration: 0,
+            exercises: {}
+        },
+        'Set 4': {
+            setDuration: 0,
+            exercises: {}
+        },
+        'Set 5': {
+            setDuration: 0,
+            exercises: {}
+        }
     }
 }
 
@@ -53,16 +68,17 @@ const CircuitReducers = (state = initialState, action) => {
                 ...state,
                 circuit: payload
             };
-        case SET_EXERCISE_DURATION:
+        case SET_CIRCUIT_DURATION:
             return {
                 ...state,
-                exerciseDuration: payload
+                circuitDuration: payload
             };
-        case SET_EXERCISE_NAME:
+        case SET_TOTAL_DURATION:
             return {
                 ...state,
-                exerciseName: payload
+                totalDuration: payload
             };
+            
         default:
             return {
                 ...state

@@ -12,7 +12,7 @@ export default function AddButton(props) {
                         android: `md-${props.name}`,
                     })}
                     size={props.size}
-                    style={styles.icon}
+                    style={{...styles.icon, color: props.color}}
                 />
             {props.bottomText && <Text>{props.bottomText}</Text>}
             </TouchableOpacity>
