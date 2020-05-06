@@ -1,3 +1,5 @@
+import {useSelect} from 'react-redux';
+
 function secondsToHms(d) {
     const seconds = parseFloat(d, 10);
     let h = Math.floor(seconds / 3600);
@@ -21,10 +23,10 @@ function minutesToHms(d) {
     if (m < 10) m = '0' + m;
     if (s < 10) s = '0' + s;
     
-    return h + ':' + m + ':' + s; 
+    return h + ':' + m + ':' + s;
 }
 
-const timeConversion = (duration, type) => {
+export const timeConversion = (duration, type) => {
     switch(type) {
         case 'seconds':
             return secondsToHms(duration);
@@ -32,5 +34,3 @@ const timeConversion = (duration, type) => {
             return minutesToHms(duration);
     }
 }
-
-console.log(timeConversion(1200, 'seconds'))

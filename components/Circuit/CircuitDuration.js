@@ -2,17 +2,18 @@ import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCircuitDuration, setTotalDuration } from '../../Redux/Actions/CircuitActions/CircuitActions';
+import { timeConversion }  from '../../Helpers/timeConversion';
 
 export default function CircuitDuration() {
-    const { circuitDuration, circuitCount, circuit, totalDuration } = useSelector(
+    const { circuitDuration, circuitCount, circuit, totalDuration, timeType } = useSelector(
         (state) => state.CircuitReducer.CircuitReducers
     );
     
     const dispatch = useDispatch();
-
+    
     const circDuration = () => {
-        return Object.values(circuit).reduce((acc, set) => {
-            return acc + set.setDuration;
+        return Object.values(circuit.exercises).reduce((acc, exercise) => {
+            return acc + exercise.exerciseDuration + exercise.breakDuration;
         }, 0);
     }
 
@@ -22,10 +23,9 @@ export default function CircuitDuration() {
         dispatch(setCircuitDuration(cDuration));
     }, [circuit, circuitDuration, circuitCount])
 
-
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Duration: {totalDuration}s</Text>
+            <Text style={styles.text}>{timeConversion(totalDuration, timeType)}</Text>
         </View>
     )
 }

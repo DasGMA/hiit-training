@@ -1,59 +1,27 @@
 import {
-    ADD_EXERCISE_SET,
     ADD_EXERCISE,
-    DELETE_EXERCISE_SET,
     ADD_EXERCISE_MODAL,
-    SELECT_SET,
     SET_CIRCUIT_DURATION,
-    SET_TOTAL_DURATION
+    SET_TOTAL_DURATION,
+    COUNTDOWN_MODAL,
+    DELETE_EXERCISE
 } from '../../Actions/CircuitActions/CircuitActions';
 
 const initialState = {
+    countdownModal: false,
     circuitCount: 1,
-    circuitDuration: 0,
     totalDuration: 0,
-    breakDuration: 0,
+    timeType: 'seconds',
     breakDurationBetweenCircuit: 0,
     addExerciseModal: false,
-    selectedSet: '',
     circuit: {
-        'Set 1': {
-            setDuration: 0,
-            exercises: {}
-        },
-        'Set 2': {
-            setDuration: 0,
-            exercises: {}
-        },
-        'Set 3': {
-            setDuration: 0,
-            exercises: {}
-        },
-        'Set 4': {
-            setDuration: 0,
-            exercises: {}
-        }
+        exercises: {}
     }
 }
 
 const CircuitReducers = (state = initialState, action) => {
     const {type, payload} = action;
     switch(type) {
-        case ADD_EXERCISE_SET:
-            return {
-                ...state,
-                circuit: {...state.circuit, ...payload}
-            };
-        case DELETE_EXERCISE_SET:
-            return {
-                ...state,
-                circuit: payload
-            };
-        case SELECT_SET:
-            return {
-                ...state,
-                selectedSet: payload
-            };
         case ADD_EXERCISE_MODAL:
             return {
                 ...state,
@@ -62,7 +30,18 @@ const CircuitReducers = (state = initialState, action) => {
         case ADD_EXERCISE:
             return {
                 ...state,
-                circuit: payload
+                circuit: {
+                    ...state.circuit,
+                    exercises: payload
+                }
+            };
+        case DELETE_EXERCISE:
+            return {
+                ...state,
+                circuit: {
+                    ...state.circuit,
+                    exercises: payload
+                }
             };
         case SET_CIRCUIT_DURATION:
             return {
@@ -73,6 +52,11 @@ const CircuitReducers = (state = initialState, action) => {
             return {
                 ...state,
                 totalDuration: payload
+            };
+        case COUNTDOWN_MODAL:
+            return {
+                ...state,
+                countdownModal: !state.countdownModal
             };
 
         default:

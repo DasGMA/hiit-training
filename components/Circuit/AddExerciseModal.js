@@ -1,39 +1,45 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, Modal, TextInput } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { addExerciseModal, selectSet, addExercise } from '../../Redux/Actions/CircuitActions/CircuitActions';
+import { addExerciseModal, addExercise } from '../../Redux/Actions/CircuitActions/CircuitActions';
 import AddButton from './AddButton';
 
 export default function AddExerciseModal() {
-    const setName = useSelector(
-        (state) => state.CircuitReducer.CircuitReducers.selectedSet
-    );
     const modalVisible = useSelector(
         (state) => state.CircuitReducer.CircuitReducers.addExerciseModal
+    );
+    const timeType = useSelector(
+        (state) => state.CircuitReducer.CircuitReducers.timeType
     );
 
     const [exerciseName, setExerciseName] = useState('');
     const [exerciseDuration, setExerciseDuration] = useState('');
+    const [breakDuration, setBreakDuration] = useState('');
 
     const dispatch = useDispatch();
 
     const closeModal = () => {
         dispatch(addExerciseModal());
-        dispatch(selectSet(''));
         setExerciseDuration('');
         setExerciseName('');
+        setBreakDuration('');
     }
 
     const exercise = {
         exerciseName,
-        exerciseDuration
+        exerciseDuration: parseInt(exerciseDuration),
+        breakDuration: parseInt(breakDuration)
     }
 
     const saveExercise = () => {
-        if (exerciseName === '' || exerciseDuration === '') return;
-        dispatch(addExercise(setName, exercise));
+        if (exerciseName === '' || 
+            exerciseDuration === '' ||
+            breakDuration === '') return;
+
+        dispatch(addExercise(exercise));
         setExerciseDuration('');
         setExerciseName('');
+        setBreakDuration('');
         closeModal();
     }
     
@@ -45,9 +51,10 @@ export default function AddExerciseModal() {
             onRequestClose={closeModal}
         >
             <View style={styles.container}>
-                <Text style={styles.setName}>Add exercise for {setName}</Text>
+                <Text style={styles.setName}>Add exercise</Text>
                 <View style={styles.inputs}>
                     <View style={{...styles.inputContainer, flex: 1, marginRight: 5}}>
+                        <Text>Exercise name</Text>
                         <TextInput 
                             placeholder='Enter exercise'
                             onChangeText={(text) => setExerciseName(text)}
@@ -56,11 +63,24 @@ export default function AddExerciseModal() {
                             style={styles.inputStyle}
                         />
                     </View>
-                    <View style={styles.inputContainer}>
+                    <View style={{...styles.inputContainer, marginRight: 5}}>
+                        <Text>Duration</Text>
                         <TextInput 
-                            placeholder='0'
+                            placeholder={`0 ${timeType}`}
+                            keyboardType='numeric'
                             onChangeText={(text) => setExerciseDuration(text)}
                             value={exerciseDuration}
+                            placeholderTextColor='#000'
+                            style={styles.inputStyle}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <Text>Rest time</Text>
+                        <TextInput 
+                            placeholder={`0 ${timeType}`}
+                            keyboardType='numeric'
+                            onChangeText={(text) => setBreakDuration(text)}
+                            value={breakDuration}
                             placeholderTextColor='#000'
                             style={styles.inputStyle}
                         />
@@ -103,10 +123,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     inputContainer: {
-        borderWidth: 1
+        
     },
     inputStyle: {
-        padding: 5
+        padding: 5,
+        borderWidth: 1
     },
     buttonsView: {
         flexDirection: 'row',

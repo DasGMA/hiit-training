@@ -1,15 +1,17 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import ExerciseList from '../components/Circuit/ExerciseList';
-import AddNewSet from '../components/Circuit/AddNewSet';
 import AddExerciseModal from '../components/Circuit/AddExerciseModal';
+import CountDown from '../components/CountDown/CountDown';
+import AddNewExercise from '../components/Circuit/AddNewExercise';
 
 export default function CircuitScreen() {
     return (
         <View style={style.container}>
             <ExerciseList />
-            <AddNewSet />
+            <AddNewExercise />
             <AddExerciseModal />
+            <CountDown />
         </View>
     )
 }

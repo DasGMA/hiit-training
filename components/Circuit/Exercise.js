@@ -1,15 +1,39 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ShadowPropTypesIOS } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { timeConversion } from '../../Helpers/timeConversion';
+import AddButton from './AddButton';
+import { deleteExercise } from '../../Redux/Actions/CircuitActions/CircuitActions';
 
 export default function Exercise(props) {
+    const timeType = useSelector(
+        (state) => state.CircuitReducer.CircuitReducers.timeType
+    );
+
+    const dispatch = useDispatch();
+
     return (
-        <View style={styles.container}>
-            <View style={styles.info}>
-                <Text style={styles.text}>{props.exerciseName}</Text>
-                <Text style={styles.time}>Duration: {props.exerciseDuration}s</Text>
-            </View>
-            
+        <>
+        <View style={{alignItems: 'flex-end', padding: 10}}>
+            <AddButton 
+                name='more'
+                size={30}
+                onPress={() =>  dispatch(deleteExercise(props.exerciseName))}
+            />
         </View>
+        <View style={styles.container}>
+            <Text style={{fontSize: 20}}>{props.index + 1}.</Text>
+            <Text style={styles.text}>{props.exerciseName}</Text>
+            <View style={styles.info}>
+                <Text style={styles.time}>
+                    Duration: {timeConversion(props.exerciseDuration, timeType)}
+                </Text>
+                <Text style={styles.time}>
+                    Rest: {timeConversion(props.breakDuration, timeType)}
+                </Text>
+            </View>
+        </View>
+        </>
     )
 }
 
@@ -18,19 +42,21 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
         paddingBottom: 5,
-        paddingTop: 5
+        paddingTop: 5,
+        borderBottomWidth: 1,
+        borderBottomColor: '#dddddd',
+        alignItems: 'center',
+        height: 100
     },
     info: {
-        flexDirection: 'row',
         justifyContent: 'space-between',
-        flex: 1,
-        borderBottomWidth: 1,
-        borderBottomColor: '#dddddd'
     },
     text: {
-        fontSize: 16
+        fontSize: 20,
+        flex: 1,
+        padding: 10
     },
     time: {
-
+        fontSize: 16
     }
 })
