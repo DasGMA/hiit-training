@@ -28,8 +28,8 @@ export default function StartCountdownButton() {
     }
     
     const countDownModal = () => {
+        dispatch(setCountdownComponent(circuitInfo));
         dispatch(setCountdownModal());
-        dispatch(setCountdownComponent(circuitInfo))
     };
 
     return (

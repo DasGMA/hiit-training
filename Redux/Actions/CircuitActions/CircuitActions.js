@@ -7,18 +7,22 @@ export const SET_TOTAL_DURATION = 'SET_TOTAL_DURATION';
 export const COUNTDOWN_MODAL = 'COUNTDOWN_MODAL';
 
 export const deleteExercise = (exerciseName) => (dispatch, getState) => {
-    const exercises = getState().CircuitReducer.CircuitReducers.circuit.exercises;
+    const {exercises, orderByName} = getState().CircuitReducer.CircuitReducers.circuit;
     const {[exerciseName]: deletion, ...rest} = exercises;
-
+    orderByName.splice(orderByName.indexOf(exerciseName), 1);
+    
     dispatch({
         type: DELETE_EXERCISE,
-        payload: rest
+        payload: {
+            rest,
+            orderByName
+        }
     });
 };
 
 export const addExercise = (exercise) => (dispatch, getState) => {
-    const exercises = getState().CircuitReducer.CircuitReducers.circuit.exercises;
-    const {exerciseName, exerciseDuration, breakDuration} = exercise;
+    const {exercises} = getState().CircuitReducer.CircuitReducers.circuit;
+    const {exerciseName, ...rest} = exercise;
     
     if (Object.keys(exercises).includes(exerciseName)) return;
     const newCircuit = {
@@ -27,15 +31,13 @@ export const addExercise = (exercise) => (dispatch, getState) => {
                     ...exercises[exerciseName], ...exercise
                 },
             };
-
-    const orderedCircuit = Object.keys(newCircuit).sort().reduce((acc, key) => {
-        acc[key] = newCircuit[key];
-        return acc;
-    }, {});
-
+    
     dispatch({
         type: ADD_EXERCISE,
-        payload: newCircuit
+        payload: {
+            newCircuit,
+            exerciseName
+        }
     });
 };
 

@@ -4,9 +4,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setCountdownModal } from '../../Redux/Actions/CircuitActions/CircuitActions';
 import { countDown } from '../../Helpers/timeConversion';
 import CountDownComponent from './CountDownComponent';
-import CurrentSet from './CurrentSet';
-import NextSet from './NextSet';
-import { startCountdown } from '../../Redux/Actions/CountdownActions/CountdownActions';
+import CurrentExercise from './CurrentExercise';
+import NextExercise from './NextExercise';
+import { startCountdown, resetCountdown } from '../../Redux/Actions/CountdownActions/CountdownActions';
 
 export default function CountDown() {
     const { countdownModal, totalDuration, timeType } = useSelector(
@@ -16,11 +16,17 @@ export default function CountDown() {
     const countdownStart = useSelector(
         (state) => state.CountdownReducer.CountdownReducers.startCountdown
     );
+    const {orderByName} = useSelector(
+        (state) => state.CountdownReducer.CountdownReducers.circuit
+    );
 
 
     const dispatch = useDispatch();
 
-    const onClose = () => dispatch(setCountdownModal());
+    const onClose = () => {
+        dispatch(setCountdownModal());
+        dispatch(resetCountdown());
+    }
 
     return (
         <Modal
@@ -29,19 +35,24 @@ export default function CountDown() {
             onRequestClose={onClose}
             animationType='slide'
         >
-            <View style={styles.container}>
-                <CurrentSet />
-                <CountDownComponent />
-                <NextSet />
-                <View style={styles.buttonsContainer}>
-                    <TouchableOpacity onPress={onClose}>
-                        <Text>Cancel</Text>
-                    </TouchableOpacity>
+           <View style={styles.container}>
+           {orderByName.length > 0 ? 
+                <>
+                    <CurrentExercise />
+                    <CountDownComponent />
+                    <NextExercise />
+                    <View style={styles.buttonsContainer}>
+                        <TouchableOpacity onPress={onClose}>
+                            <Text>Cancel</Text>
+                        </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => dispatch(startCountdown())}>
-                        <Text>{countdownStart ? 'Pause' : 'Start'}</Text>
-                    </TouchableOpacity>
-                </View>
+                        <TouchableOpacity onPress={() => dispatch(startCountdown())}>
+                            <Text>{countdownStart ? 'Pause' : 'Start'}</Text>
+                        </TouchableOpacity>
+                    </View> 
+                </> : 
+                <Text>FINISHED</Text>
+            }
             </View>
 
         </Modal>

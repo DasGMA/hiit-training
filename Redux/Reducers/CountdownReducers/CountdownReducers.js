@@ -1,7 +1,9 @@
 import {
     START_COUNTDOWN,
     SET_COUNTDOWN_COMPONENT,
-    REDUCE_EXERCISE_TIME
+    REDUCE_EXERCISE_TIME,
+    DELETE_EXERCISE_COUNTDOWN,
+    RESET_COUNTDOWN
 } from '../../Actions/CountdownActions/CountdownActions';
 
 const initialState = {
@@ -11,7 +13,10 @@ const initialState = {
     totalDuration: 0,
     breakDuration: 0,
     breakDurationBetweenCircuit: 0,
-    circuit: {},
+    circuit: {
+        exercises: {},
+        orderByName: []
+    },
 }
 
 const CountdownReducers = (state = initialState, action) => {
@@ -35,9 +40,35 @@ const CountdownReducers = (state = initialState, action) => {
         case REDUCE_EXERCISE_TIME:
             return {
                 ...state,
-                circuit: payload
+                circuit: {
+                    ...state.circuit,
+                    exercises: payload
+                }
             }
-
+        case DELETE_EXERCISE_COUNTDOWN:
+            return {
+                ...state,
+                circuit: {
+                    ...state.circuit,
+                    exercises: payload.rest,
+                    orderByName: payload.orderByName
+                }
+            }
+        case RESET_COUNTDOWN:
+            return {
+                ...state,
+                startCountdown: false,
+                circuitCount: 0,
+                circuitDuration: 0,
+                totalDuration: 0,
+                breakDuration: 0,
+                breakDurationBetweenCircuit: 0,
+                circuit: {
+                    exercises: {},
+                    orderByName: []
+                },
+            }
+            
         default:
             return {
                 ...state

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {timeConversion} from '../../Helpers/timeConversion';
-import { reduceExerciseTime } from '../../Redux/Actions/CountdownActions/CountdownActions';
+import { reduceExerciseTime, deleteExerciseCountdown } from '../../Redux/Actions/CountdownActions/CountdownActions';
 import {delay} from '../../Helpers/delay';
 
 export default function CountDownComponent() {
@@ -16,51 +16,48 @@ export default function CountDownComponent() {
         (state) => state.CountdownReducer.CountdownReducers
     );
     
-    const set = Object.entries(circuit)[0];
-    const exercises = Object.keys(set[1].exercises);
-    const duration = Object.values(set[1].exercises);
+    const exercises = Object.entries(circuit.exercises);
     const dispatch = useDispatch();
 
     const circDuration = () => {
-        return Object.values(circuit).reduce((acc, set) => {
-            return acc + set.setDuration;
+        return Object.values(circuit.exercises).reduce((acc, exercise) => {
+            return acc + exercise.exerciseDuration + exercise.breakDuration;
         }, 0);
     }
 
     const total = timeType === 'seconds' ? circDuration() : circDuration() * 60;
     
 
-    const countdown = (setName, exerciseName, index) => {
-        let exerciseTime = duration[index].exerciseDuration;
+    const countdown = (exerciseName) => {
+        let exerciseTime = exercises[0][1].exerciseDuration;
         let interval = {};
         interval[exerciseName] = setInterval(count, 1000);
-
+        
         function count() {
             if (countdownStart === true) {
                 exerciseTime --;
-                dispatch(reduceExerciseTime(setName, exerciseName))
+                dispatch(reduceExerciseTime(exerciseName))
             }
             if (exerciseTime === 0) clearInterval(interval[exerciseName]);
         }
     }
 
     const main = async() => {
-        let index = 0;
-        let setIndex = 0;
-        while (index < exercises.length) {
-            countdown(set[setIndex], exercises[index], index);
-            await delay(duration[index].exerciseDuration * 1000);
-            index ++
-            if (circuit[set[setIndex]].setDuration === 0) {
-                index = 0;
-            }
+        let i = 0;
+        while (i < exercises.length) {
+            countdown(exercises[i][0]);
+            await delay(
+                (exercises[i][1].exerciseDuration + exercises[i][1].breakDuration) * 1000
+            );
+            dispatch(deleteExerciseCountdown(exercises[i][0]));
+            i ++;
         }
     }
 
 
 
     useEffect(() => {
-        main()
+        countdownStart === true && main()
     }, [countdownStart])
 
     return (

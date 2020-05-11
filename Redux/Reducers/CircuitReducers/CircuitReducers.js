@@ -15,7 +15,8 @@ const initialState = {
     breakDurationBetweenCircuit: 0,
     addExerciseModal: false,
     circuit: {
-        exercises: {}
+        exercises: {},
+        orderByName: []
     }
 }
 
@@ -32,7 +33,10 @@ const CircuitReducers = (state = initialState, action) => {
                 ...state,
                 circuit: {
                     ...state.circuit,
-                    exercises: payload
+                    exercises: payload.newCircuit,
+                    orderByName: [
+                        ...state.circuit.orderByName, payload.exerciseName
+                    ]
                 }
             };
         case DELETE_EXERCISE:
@@ -40,7 +44,8 @@ const CircuitReducers = (state = initialState, action) => {
                 ...state,
                 circuit: {
                     ...state.circuit,
-                    exercises: payload
+                    exercises: payload.rest,
+                    orderByName: payload.orderByName
                 }
             };
         case SET_CIRCUIT_DURATION:

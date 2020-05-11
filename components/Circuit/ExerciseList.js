@@ -13,7 +13,6 @@ export default function ExerciseList() {
 
     const exercises = () => {
         return Object.entries(circuit.exercises).map((exercise, index) => (
-            console.log(exercise),
             <Exercise
                 key={index}
                 index={index}
