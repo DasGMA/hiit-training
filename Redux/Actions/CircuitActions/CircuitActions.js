@@ -5,6 +5,7 @@ export const ADD_EXERCISE_MODAL = 'ADD_EXERCISE_MODAL';
 export const SET_CIRCUIT_DURATION = 'SET_CIRCUIT_DURATION';
 export const SET_TOTAL_DURATION = 'SET_TOTAL_DURATION';
 export const COUNTDOWN_MODAL = 'COUNTDOWN_MODAL';
+export const RESET_CIRCUIT = 'RESET_CIRCUIT';
 
 export const deleteExercise = (exerciseName) => (dispatch, getState) => {
     const {exercises, orderByName} = getState().CircuitReducer.CircuitReducers.circuit;
@@ -66,3 +67,9 @@ export const setCountdownModal = () => dispatch => {
         type: COUNTDOWN_MODAL
     });
 };
+
+export const resetCircuit = () => dispatch => {
+    dispatch({
+        type: RESET_CIRCUIT
+    })
+}

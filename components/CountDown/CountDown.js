@@ -28,6 +28,8 @@ export default function CountDown() {
         dispatch(resetCountdown());
     }
 
+    const startCount = () => dispatch(startCountdown());
+
     return (
         <Modal
             visible={countdownModal}
@@ -42,12 +44,18 @@ export default function CountDown() {
                     <CountDownComponent />
                     <NextExercise />
                     <View style={styles.buttonsContainer}>
-                        <TouchableOpacity onPress={onClose}>
-                            <Text>Cancel</Text>
+                        <TouchableOpacity
+                            style={{...styles.button, backgroundColor: 'red'}}
+                            onPress={onClose}
+                        >
+                            <Text style={styles.text}>Cancel</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={() => dispatch(startCountdown())}>
-                            <Text>{countdownStart ? 'Pause' : 'Start'}</Text>
+                        <TouchableOpacity
+                            style={{...styles.button, backgroundColor: 'green'}}
+                            onPress={startCount}
+                        >
+                            <Text style={styles.text}>{countdownStart ? 'Pause' : 'Start'}</Text>
                         </TouchableOpacity>
                     </View> 
                 </> : 
@@ -70,8 +78,16 @@ const styles = StyleSheet.create({
     },
     buttonsContainer: {
         flexDirection: 'row',
-        width: '80%',
         justifyContent: 'space-between',
-        padding: 10,
+    },
+    button: {
+        flex: 1,
+        alignItems: 'center',
+        padding: 20
+
+    },
+    text: {
+        fontSize: 20,
+        color: '#fff'
     }
 })

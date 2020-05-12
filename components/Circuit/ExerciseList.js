@@ -9,6 +9,8 @@ export default function ExerciseList() {
         (state) => state.CircuitReducer.CircuitReducers.circuit
     );
 
+    console.log({'from exercise list': circuit})
+
     const listRef = useRef();
 
     const exercises = () => {

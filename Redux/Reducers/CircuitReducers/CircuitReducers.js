@@ -4,7 +4,8 @@ import {
     SET_CIRCUIT_DURATION,
     SET_TOTAL_DURATION,
     COUNTDOWN_MODAL,
-    DELETE_EXERCISE
+    DELETE_EXERCISE,
+    RESET_CIRCUIT
 } from '../../Actions/CircuitActions/CircuitActions';
 
 const initialState = {
@@ -63,6 +64,20 @@ const CircuitReducers = (state = initialState, action) => {
                 ...state,
                 countdownModal: !state.countdownModal
             };
+        case RESET_CIRCUIT:
+            return {
+                ...state,
+                countdownModal: false,
+                circuitCount: 1,
+                totalDuration: 0,
+                timeType: 'seconds',
+                breakDurationBetweenCircuit: 0,
+                addExerciseModal: false,
+                circuit: {
+                    exercises: {},
+                    orderByName: []
+                }
+            }
 
         default:
             return {

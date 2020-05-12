@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCountdownModal } from '../../Redux/Actions/CircuitActions/CircuitActions';
+import { setCountdownModal, resetCircuit } from '../../Redux/Actions/CircuitActions/CircuitActions';
 import { setCountdownComponent } from '../../Redux/Actions/CountdownActions/CountdownActions';
 
 export default function StartCountdownButton() {
@@ -9,7 +9,6 @@ export default function StartCountdownButton() {
         circuit,
         totalDuration,
         circuitDuration,
-        breakDuration,
         breakDurationBetweenCircuit,
         circuitCount
     } = useSelector(
@@ -22,7 +21,6 @@ export default function StartCountdownButton() {
         circuit,
         totalDuration,
         circuitDuration,
-        breakDuration,
         breakDurationBetweenCircuit,
         circuitCount
     }

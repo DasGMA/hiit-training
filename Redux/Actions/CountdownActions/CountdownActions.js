@@ -11,12 +11,11 @@ export const startCountdown = () => dispatch => {
 };
 
 export const setCountdownComponent = (circuitObject) => dispatch => {
-    console.log(circuitObject)
+console.log({'From countdown':circuitObject})
     const {
         circuit, 
         circuitDuration, 
         totalDuration, 
-        breakDuration, 
         breakDurationBetweenCircuit,
         circuitCount
     } = circuitObject;
@@ -27,7 +26,6 @@ export const setCountdownComponent = (circuitObject) => dispatch => {
             circuit, 
             circuitDuration, 
             totalDuration, 
-            breakDuration, 
             breakDurationBetweenCircuit,
             circuitCount
         }
@@ -68,7 +66,7 @@ export const deleteExerciseCountdown = (exerciseName) => (dispatch, getState) =>
     const {exercises, orderByName} = getState().CountdownReducer.CountdownReducers.circuit;
     const {[exerciseName]: deleting, ...rest} = exercises;
     orderByName.splice(orderByName.indexOf(exerciseName), 1);
-
+    
     dispatch({
         type: DELETE_EXERCISE_COUNTDOWN,
         payload: {
