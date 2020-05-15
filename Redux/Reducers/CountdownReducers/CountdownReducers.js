@@ -51,7 +51,7 @@ const CountdownReducers = (state = initialState, action) => {
                 circuit: {
                     ...state.circuit,
                     exercises: payload.rest,
-                    orderByName: payload.orderByName
+                    orderByName: payload.newOrderByName
                 }
             }
         case RESET_COUNTDOWN:

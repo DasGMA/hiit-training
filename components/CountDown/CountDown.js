@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, Modal, StyleSheet, TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCountdownModal } from '../../Redux/Actions/CircuitActions/CircuitActions';
-import { countDown } from '../../Helpers/timeConversion';
 import CountDownComponent from './CountDownComponent';
 import CurrentExercise from './CurrentExercise';
 import NextExercise from './NextExercise';
@@ -20,6 +19,7 @@ export default function CountDown() {
         (state) => state.CountdownReducer.CountdownReducers.circuit
     );
 
+    const state = useSelector(state => state)
 
     const dispatch = useDispatch();
 
@@ -29,7 +29,7 @@ export default function CountDown() {
     }
 
     const startCount = () => dispatch(startCountdown());
-
+console.log(state)
     return (
         <Modal
             visible={countdownModal}

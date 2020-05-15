@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {timeConversion} from '../../Helpers/timeConversion';
-import { reduceExerciseTime, deleteExerciseCountdown } from '../../Redux/Actions/CountdownActions/CountdownActions';
+import { reduceExerciseTime, deleteExerciseCountdown, resetCountdown } from '../../Redux/Actions/CountdownActions/CountdownActions';
 import {delay} from '../../Helpers/delay';
+import { resetCircuit } from '../../Redux/Actions/CircuitActions/CircuitActions';
 
 export default function CountDownComponent() {
     const { timeType } = useSelector(
@@ -26,7 +27,6 @@ export default function CountDownComponent() {
     }
 
     const total = timeType === 'seconds' ? circDuration() : circDuration() * 60;
-    
 
     const countdown = (exerciseName) => {
         let exerciseTime = exercises[0][1].exerciseDuration;
@@ -54,7 +54,9 @@ export default function CountDownComponent() {
         }
     }
 
-
+    useEffect(() => {
+        total === 0 && dispatch(resetCountdown());
+    }, [total])
 
     useEffect(() => {
         countdownStart === true && main()

@@ -26,19 +26,10 @@ export const addExercise = (exercise) => (dispatch, getState) => {
     const {exerciseName, ...rest} = exercise;
     
     if (Object.keys(exercises).includes(exerciseName)) return;
-    const newCircuit = {
-            ...exercises,
-                [exerciseName]: {
-                    ...exercises[exerciseName], ...exercise
-                },
-            };
     
     dispatch({
         type: ADD_EXERCISE,
-        payload: {
-            newCircuit,
-            exerciseName
-        }
+        payload: exercise
     });
 };
 

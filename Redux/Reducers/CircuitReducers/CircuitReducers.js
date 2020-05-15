@@ -34,7 +34,10 @@ const CircuitReducers = (state = initialState, action) => {
                 ...state,
                 circuit: {
                     ...state.circuit,
-                    exercises: payload.newCircuit,
+                    exercises: {
+                        ...state.circuit.exercises,
+                        [payload.exerciseName]: payload
+                    },
                     orderByName: [
                         ...state.circuit.orderByName, payload.exerciseName
                     ]
