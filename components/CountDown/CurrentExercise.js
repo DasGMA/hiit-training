@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
-import Exercise from '../Circuit/Exercise';
+import CountDownExercise from './CountDownExercise';
 
 export default function CurrentExercise() {
     const circuit = useSelector(
@@ -13,9 +13,8 @@ export default function CurrentExercise() {
     return (
         <View style={styles.set}>
             <Text style={styles.setText}>Current exercise</Text>
-            <Text>{exercise[0]}</Text>
-            <Exercise
-                exerciseName={exercise[1].exerciseName}
+            <Text style={styles.exerciseName}>{exercise[0]}</Text>
+            <CountDownExercise
                 exerciseDuration={exercise[1].exerciseDuration}
                 breakDuration={exercise[1].breakDuration}
              />
@@ -30,7 +29,10 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     setText: {
-        fontSize: 20,
+        fontSize: 30,
         padding: 10
     },
+    exerciseName: {
+        fontSize: 25
+    }
 })

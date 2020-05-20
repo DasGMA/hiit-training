@@ -4,7 +4,6 @@ import {useSelector, useDispatch} from 'react-redux';
 import {timeConversion} from '../../Helpers/timeConversion';
 import { reduceExerciseTime, deleteExerciseCountdown, resetCountdown } from '../../Redux/Actions/CountdownActions/CountdownActions';
 import {delay} from '../../Helpers/delay';
-import { resetCircuit } from '../../Redux/Actions/CircuitActions/CircuitActions';
 
 export default function CountDownComponent() {
     const { timeType } = useSelector(
