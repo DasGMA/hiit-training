@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import AddButton from '../Circuit/AddButton';
 
 const months = ['January', 'February', 'March', 'April', 
 'May', 'June', 'July', 'August', 'September', 'October', 
@@ -17,7 +18,8 @@ export default function Calendar() {
 
         var maxDays = numberMonthDays[month];
         if (month === 1) {
-            if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+            // February
+            if ((year % 4 === 0 && year % 100 != 0) || year % 400 === 0) {
                 maxDays += 1;
             }
         }
@@ -48,10 +50,15 @@ export default function Calendar() {
 
     const onPress = (item) => {
         if (!item.match && item != -1) {
-            const newActiveDate = new Date (activeDate.setDate(item));
+            const newActiveDate = new Date(activeDate.setDate(item));
             setActiveDate(newActiveDate);
         }
     };
+
+    const changeMonth = (num) => {
+        const newActiveDate = new Date(activeDate.setMonth(activeDate.getMonth() + num));
+        setActiveDate(newActiveDate)
+    }
     
     let rows = [];
     rows = matrix.map((row, rowIndex) => {
@@ -61,11 +68,11 @@ export default function Calendar() {
                 key={item + colIndex}
                 style={{
                 flex: 1,
-                height: 18,
+                height: 20,
                 textAlign: 'center',
                 backgroundColor: rowIndex === 0 ? '#ddd' : '#fff',
                 color: colIndex === 0 ? '#a00' : '#000',
-                fontWeight: item === activeDate.getDate() ? 'bold': 'normal'
+                fontWeight: item === activeDate.getDate() ? 'bold': 'normal',
                 }}
                 onPress={() => onPress(item)}
                 >
@@ -91,11 +98,37 @@ export default function Calendar() {
 
     return (
         <View>
-            <Text style={{fontWeight: 'bold', fontSize: 18, textAlign: 'center'}}>
-                {months[activeDate.getMonth()]} &nbsp;
-                {activeDate.getFullYear()}
-            </Text>
+            <View style={styles.header}>
+                <AddButton 
+                    name='arrow-round-back'
+                    size={25}
+                    onPress={() => changeMonth(-1)}
+                />
+                <Text style={styles.monthYear}>
+                    {months[activeDate.getMonth()]} &nbsp;
+                    {activeDate.getFullYear()}
+                </Text>
+                <AddButton 
+                    name='arrow-round-forward'
+                    size={25}
+                    onPress={() => changeMonth(1)}
+                />
+            </View>
             {rows}
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: 15
+    },
+    monthYear: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        textAlign: 'center',
+    }
+})

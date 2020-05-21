@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Modal, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Modal, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCountdownModal } from '../../Redux/Actions/CircuitActions/CircuitActions';
 import CountDownComponent from './CountDownComponent';
@@ -8,7 +8,7 @@ import NextExercise from './NextExercise';
 import { startCountdown, resetCountdown } from '../../Redux/Actions/CountdownActions/CountdownActions';
 
 export default function CountDown() {
-    const { countdownModal, totalDuration, timeType } = useSelector(
+    const { countdownModal, totalDuration, timeType, circuit } = useSelector(
         (state) => state.CircuitReducer.CircuitReducers
     );
 
@@ -19,8 +19,6 @@ export default function CountDown() {
         (state) => state.CountdownReducer.CountdownReducers.circuit
     );
 
-    const state = useSelector(state => state)
-
     const dispatch = useDispatch();
 
     const onClose = () => {
@@ -29,7 +27,7 @@ export default function CountDown() {
     }
 
     const startCount = () => dispatch(startCountdown());
-console.log(state)
+
     return (
         <Modal
             visible={countdownModal}
@@ -59,7 +57,14 @@ console.log(state)
                         </TouchableOpacity>
                     </View> 
                 </> : 
-                <Text>FINISHED</Text>
+                    <View>
+                        <Text>FINISHED</Text>
+                        <Text>Congratulations!!!</Text>
+                        <Text>You have finished your HIIT training session.</Text>
+                            {circuit.orderByName.map((e, i) => <Text key={i}>{i+1}. {e}</Text>)}
+                        <Button title='Cancel' color='red'/><Button title='Save to history' color='green'/>
+                    </View>
+                
             }
             </View>
 
