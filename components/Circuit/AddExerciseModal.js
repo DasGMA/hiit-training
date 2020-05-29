@@ -37,9 +37,6 @@ export default function AddExerciseModal() {
             breakDuration === '') return;
 
         dispatch(addExercise(exercise));
-        setExerciseDuration('');
-        setExerciseName('');
-        setBreakDuration('');
         closeModal();
     }
     

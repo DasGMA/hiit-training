@@ -12,7 +12,7 @@ const initialState = {
     countdownModal: false,
     circuitCount: 1,
     totalDuration: 0,
-    timeType: 'seconds',
+    timeType: 'sec',
     breakDurationBetweenCircuit: 0,
     addExerciseModal: false,
     circuit: {
@@ -73,7 +73,7 @@ const CircuitReducers = (state = initialState, action) => {
                 countdownModal: false,
                 circuitCount: 1,
                 totalDuration: 0,
-                timeType: 'seconds',
+                timeType: 'sec',
                 breakDurationBetweenCircuit: 0,
                 addExerciseModal: false,
                 circuit: {

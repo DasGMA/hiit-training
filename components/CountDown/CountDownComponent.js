@@ -25,7 +25,7 @@ export default function CountDownComponent() {
         }, 0);
     }
 
-    const total = timeType === 'seconds' ? circDuration() : circDuration() * 60;
+    const total = timeType === 'sec' ? circDuration() : circDuration() * 60;
 
     const countdown = (exerciseName) => {
         let exerciseTime = exercises[0][1].exerciseDuration;
@@ -63,7 +63,7 @@ export default function CountDownComponent() {
 
     return (
         <View>
-            <Text style={styles.text}>{timeConversion(total, 'seconds')}</Text>
+            <Text style={styles.text}>{timeConversion(total, 'sec')}</Text>
         </View>
     )
 }

@@ -1,4 +1,3 @@
-import {useSelect} from 'react-redux';
 
 function secondsToHms(d) {
     const seconds = parseFloat(d, 10);
@@ -28,9 +27,9 @@ function minutesToHms(d) {
 
 export const timeConversion = (duration, type) => {
     switch(type) {
-        case 'seconds':
+        case 'sec':
             return secondsToHms(duration);
-        case 'minutes':
+        case 'min':
             return minutesToHms(duration);
     }
 }
