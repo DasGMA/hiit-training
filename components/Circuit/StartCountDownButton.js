@@ -26,13 +26,14 @@ export default function StartCountdownButton() {
     }
     
     const countDownModal = () => {
+        if (circuit.orderByName.length === 0) return;
         dispatch(setCountdownComponent(circuitInfo));
         dispatch(setCountdownModal());
     };
 
     return (
         <TouchableOpacity
-            style={styles.button}
+            style={circuit.orderByName.length !== 0 ? styles.button : {...styles.button, backgroundColor: 'grey'}}
             onPress={countDownModal}
         >
             <Text style={styles.text}>NEXT</Text>

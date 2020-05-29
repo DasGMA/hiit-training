@@ -6,6 +6,7 @@ import CountDownComponent from './CountDownComponent';
 import CurrentExercise from './CurrentExercise';
 import NextExercise from './NextExercise';
 import { startCountdown, resetCountdown } from '../../Redux/Actions/CountdownActions/CountdownActions';
+import EndOfExercising from './EndOfExercising';
 
 export default function CountDown() {
     const { countdownModal, totalDuration, timeType, circuit } = useSelector(
@@ -57,13 +58,9 @@ export default function CountDown() {
                         </TouchableOpacity>
                     </View> 
                 </> : 
-                    <View>
-                        <Text>FINISHED</Text>
-                        <Text>Congratulations!!!</Text>
-                        <Text>You have finished your HIIT training session.</Text>
-                            {circuit.orderByName.map((e, i) => <Text key={i}>{i+1}. {e}</Text>)}
-                        <Button title='Cancel' color='red'/><Button title='Save to history' color='green'/>
-                    </View>
+                    <EndOfExercising 
+                        cancel={onClose}
+                    />
                 
             }
             </View>
