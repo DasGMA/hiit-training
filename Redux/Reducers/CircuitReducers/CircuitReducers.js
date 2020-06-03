@@ -5,11 +5,18 @@ import {
     SET_TOTAL_DURATION,
     COUNTDOWN_MODAL,
     DELETE_EXERCISE,
-    RESET_CIRCUIT
+    RESET_CIRCUIT,
+    EXERCISE_MENU_MODAL,
+    SET_EXERCISE_MENU_COORDINATES
 } from '../../Actions/CircuitActions/CircuitActions';
 
 const initialState = {
     countdownModal: false,
+    exerciseMenuModal: false,
+    exerciseMenuCoordinates: {
+        pageX: 0,
+        pageY: 0
+    },
     circuitCount: 1,
     totalDuration: 0,
     timeType: 'sec',
@@ -43,6 +50,16 @@ const CircuitReducers = (state = initialState, action) => {
                     ]
                 }
             };
+        case EXERCISE_MENU_MODAL:
+            return {
+                ...state,
+                exerciseMenuModal: !state.exerciseMenuModal
+            };
+        case SET_EXERCISE_MENU_COORDINATES:
+            return {
+                ...state,
+                exerciseMenuCoordinates: payload
+            };
         case DELETE_EXERCISE:
             return {
                 ...state,
@@ -71,6 +88,11 @@ const CircuitReducers = (state = initialState, action) => {
             return {
                 ...state,
                 countdownModal: false,
+                exerciseMenuModal: false,
+                exerciseMenuCoordinates: {
+                    pageX: 0,
+                    pageY: 0
+                },
                 circuitCount: 1,
                 totalDuration: 0,
                 timeType: 'sec',

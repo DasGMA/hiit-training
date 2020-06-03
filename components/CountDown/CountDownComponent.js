@@ -35,9 +35,14 @@ export default function CountDownComponent() {
         function count() {
             if (countdownStart === true) {
                 exerciseTime --;
-                dispatch(reduceExerciseTime(exerciseName))
+
+                if (exerciseTime === 0) {
+                    clearInterval(interval[exerciseName]);
+                } else {
+                    dispatch(reduceExerciseTime(exerciseName));
+                }
             }
-            if (exerciseTime === 0) clearInterval(interval[exerciseName]);
+            
         }
     }
 

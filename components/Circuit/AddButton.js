@@ -7,6 +7,7 @@ export default function AddButton(props) {
         <TouchableOpacity
             style={!props.bottomText ? styles.containerRow : styles.containerColumn}
             onPress={props.onPress}
+            onLayout={props.onLayout}
         >
             <Ionicons
                 name={Platform.select({

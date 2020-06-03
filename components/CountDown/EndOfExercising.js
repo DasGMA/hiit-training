@@ -7,7 +7,7 @@ export default function EndOfExercising(props) {
     const { countdownModal, totalDuration, timeType, circuit } = useSelector(
         (state) => state.CircuitReducer.CircuitReducers
     );
-    console.log(emojis)
+    
     return (
         <View>
             <Text>FINISHED</Text>

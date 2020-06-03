@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ShadowPropTypesIOS } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { timeConversion } from '../../Helpers/timeConversion';
 import AddButton from './AddButton';
-import { deleteExercise } from '../../Redux/Actions/CircuitActions/CircuitActions';
+import { exerciseMenuModal, setExerciseMenuCoordinates } from '../../Redux/Actions/CircuitActions/CircuitActions';
 
 export default function Exercise(props) {
     const timeType = useSelector(
@@ -11,6 +11,11 @@ export default function Exercise(props) {
     );
 
     const dispatch = useDispatch();
+    const onPress = (event) => {
+        const {pageX, pageY} = event.nativeEvent;
+        dispatch(exerciseMenuModal());
+        dispatch(setExerciseMenuCoordinates({pageX, pageY}));
+    }
 
     return (
         <>
@@ -18,7 +23,7 @@ export default function Exercise(props) {
             <AddButton 
                 name='more'
                 size={30}
-                onPress={() =>  dispatch(deleteExercise(props.exerciseName))}
+                onPress={(event) => onPress(event)}
             />
         </View>
         <View style={styles.container}>

@@ -4,6 +4,7 @@ import ExerciseList from '../components/Circuit/ExerciseList';
 import AddExerciseModal from '../components/Circuit/AddExerciseModal';
 import CountDown from '../components/CountDown/CountDown';
 import AddNewExercise from '../components/Circuit/AddNewExercise';
+import ExerciseMenuModal from '../components/Circuit/ExerciseMenuModal';
 
 export default function CircuitScreen() {
     return (
@@ -12,6 +13,7 @@ export default function CircuitScreen() {
             <AddNewExercise />
             <AddExerciseModal />
             <CountDown />
+            <ExerciseMenuModal />
         </View>
     )
 }
