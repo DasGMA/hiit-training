@@ -39,7 +39,11 @@ export default function Exercise(props) {
                 </Text>
             </View>
         </View>
-        <ExerciseMenuModal exerciseName={props.exerciseName}/>
+        <ExerciseMenuModal 
+            exerciseName={props.exerciseName}
+            exerciseDuration={props.exerciseDuration}
+            breakDuration={props.breakDuration}
+        />
         </>
     )
 }

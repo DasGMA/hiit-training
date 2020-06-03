@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, Modal, TextInput } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { addExerciseModal, addExercise, setExerciseDuration, setExerciseName, setBreakDuration } from '../../Redux/Actions/CircuitActions/CircuitActions';
+import { addExerciseModal, addExercise, setExerciseDuration, setExerciseName, setBreakDuration, editExercise, setEditExercise } from '../../Redux/Actions/CircuitActions/CircuitActions';
 import AddButton from './AddButton';
 
 export default function AddExerciseModal() {
-    const {timeType, exerciseName, exerciseDuration, breakDuration} = useSelector(
+    const {timeType, exerciseName, exerciseDuration, breakDuration, exerciseEdit, index} = useSelector(
         (state) => state.CircuitReducer.CircuitReducers
     );
     const visible = useSelector(
@@ -19,6 +19,7 @@ export default function AddExerciseModal() {
         dispatch(setExerciseDuration(''));
         dispatch(setExerciseName(''));
         dispatch(setBreakDuration(''));
+        dispatch(setEditExercise(false));
     }
 
     const exercise = {
@@ -33,6 +34,16 @@ export default function AddExerciseModal() {
             breakDuration === '') return;
 
         dispatch(addExercise(exercise));
+        closeModal();
+    }
+
+    const saveEditedExercise = () => {
+         console.log('EDITING')
+        if (exerciseName === '' || 
+            exerciseDuration === '' ||
+            breakDuration === '') return;
+        dispatch(editExercise(index, exercise));
+        dispatch(setEditExercise(false));
         closeModal();
     }
     
@@ -91,7 +102,7 @@ export default function AddExerciseModal() {
                         name='save'
                         bottomText='Save'
                         size={30}
-                        onPress={saveExercise}
+                        onPress={exerciseEdit === true ? saveEditedExercise : saveExercise}
                         color='green'
                     />
                 </View>

@@ -11,6 +11,9 @@ export const SET_EXERCISE_MENU_COORDINATES = 'SET_EXERCISE_MENU_COORDINATES';
 export const SET_EXERCISE_NAME = 'SET_EXERCISE_NAME';
 export const SET_EXERCISE_DURATION = 'SET_EXERCISE_DURATION';
 export const SET_BREAK_DURATION = 'SET_BREAK_DURATION';
+export const EDIT_EXERCISE = 'EDIT_EXERCISE';
+export const SET_EDIT_EXERCISE = 'SET_EDIT_EXERCISE';
+export const SET_INDEX = 'SET_INDEX';
 
 export const deleteExercise = (exerciseName) => (dispatch, getState) => {
     const {exercises, orderByName} = getState().CircuitReducer.CircuitReducers.circuit;
@@ -36,6 +39,40 @@ export const addExercise = (exercise) => (dispatch, getState) => {
         type: ADD_EXERCISE,
         payload: exercise
     });
+};
+
+export const setEditExercise = (value) => dispatch => {
+    dispatch({
+        type: SET_EDIT_EXERCISE,
+        payload: value
+    })
+}
+
+export const editExercise = (index, exercise) => (dispatch, getState) => {
+    let {exercises, orderByName} = getState().CircuitReducer.CircuitReducers.circuit;
+    const oldName = orderByName[index];
+    orderByName[index] = exercise.exerciseName;
+    delete exercises[oldName];
+    exercises[exercise.exerciseName] = exercise;
+
+    const orderedExercises = () => {
+        let obj = {};
+        for (const name of orderByName) {
+            if (!obj[name]) {
+                obj[name] = exercises[name]
+            }
+        }
+
+        return obj;
+    }
+
+    dispatch({
+        type: EDIT_EXERCISE,
+        payload: {
+            exercises: orderedExercises(),
+            orderByName
+        }
+    })
 };
 
 export const addExerciseModal = () => dispatch => {
@@ -68,38 +105,45 @@ export const resetCircuit = () => dispatch => {
     dispatch({
         type: RESET_CIRCUIT
     })
-}
+};
 
 export const exerciseMenuModal = () => dispatch => {
     dispatch({
         type: EXERCISE_MENU_MODAL
     })
-}
+};
 
 export const setExerciseMenuCoordinates = (coordinates) => dispatch => {
     dispatch({
         type: SET_EXERCISE_MENU_COORDINATES,
         payload: coordinates
     })
-}
+};
 
 export const setExerciseName = (exerciseName) => dispatch => {
     dispatch({
         type: SET_EXERCISE_NAME,
         payload: exerciseName
     })
-}
+};
 
 export const setExerciseDuration = (exerciseDuration) => dispatch => {
     dispatch({
         type: SET_EXERCISE_DURATION,
         payload: exerciseDuration
     })
-}
+};
 
 export const setBreakDuration = (breakDuration) => dispatch => {
     dispatch({
         type: SET_BREAK_DURATION,
         payload: breakDuration
     })
-}
+};
+
+export const setIndex = (index) => dispatch => {
+    dispatch({
+        type: SET_INDEX,
+        payload: index
+    })
+};

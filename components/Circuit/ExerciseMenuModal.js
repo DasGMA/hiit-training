@@ -1,80 +1,119 @@
-import React from 'react';
-import {useSelector, useDispatch} from 'react-redux'; 
-import {View, Text, Modal, TouchableOpacity, TouchableWithoutFeedback, StyleSheet, Dimensions} from 'react-native';
-import { exerciseMenuModal, setExerciseMenuCoordinates, deleteExercise } from '../../Redux/Actions/CircuitActions/CircuitActions';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+    View,
+    Text,
+    Modal,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    StyleSheet,
+    Dimensions,
+} from "react-native";
+import {
+    exerciseMenuModal,
+    setExerciseMenuCoordinates,
+    deleteExercise,
+    setExerciseName,
+    setExerciseDuration,
+    setBreakDuration,
+    addExerciseModal,
+    setEditExercise,
+    setIndex,
+} from "../../Redux/Actions/CircuitActions/CircuitActions";
 
-const {width} = Dimensions.get('screen');
+const { width } = Dimensions.get("screen");
 
 export default function ExerciseMenuModal(props) {
-    const exerciseMenu = useSelector(
+    const visible = useSelector(
         (state) => state.CircuitReducer.CircuitReducers.exerciseMenuModal
     );
-    const {pageX, pageY} = useSelector(
+    const { pageX, pageY } = useSelector(
         (state) => state.CircuitReducer.CircuitReducers.exerciseMenuCoordinates
     );
-    
+    const circuit = useSelector(
+        (state) => state.CircuitReducer.CircuitReducers.circuit
+    );
+
+    const index = circuit.orderByName.indexOf(props.exerciseName);
+
     const dispatch = useDispatch();
 
-    const closeExerciseMenu = () =>  {
+    const closeExerciseMenu = () => {
         dispatch(exerciseMenuModal());
-        dispatch(setExerciseMenuCoordinates({pageX: 0, pageY: 0}));
-	}
+        dispatch(setExerciseMenuCoordinates({ pageX: 0, pageY: 0 }));
+    };
 
-	const exerciseDelete = () => {
-		dispatch(deleteExercise(props.exerciseName));
-		closeExerciseMenu();
-	}
+    const exerciseDelete = () => {
+        dispatch(deleteExercise(props.exerciseName));
+        closeExerciseMenu();
+    };
 
-	const renderButtons = <>
-							<TouchableOpacity>
-								<Text style={styles.text}>Edit</Text>
-							</TouchableOpacity>
-							<TouchableOpacity>
-								<Text style={styles.text}>Add to favourites</Text>
-							</TouchableOpacity>
-							<TouchableOpacity onPress={exerciseDelete}>
-								<Text style={styles.text}>Delete</Text>
-							</TouchableOpacity>
-						</>
+    const exerciseEdit = () => {
+        dispatch(setEditExercise(true));
+        dispatch(setExerciseName(props.exerciseName));
+        dispatch(setExerciseDuration(props.exerciseDuration.toString()));
+        dispatch(setBreakDuration(props.breakDuration.toString()));
+        dispatch(addExerciseModal());
+        dispatch(setIndex(index));
+        closeExerciseMenu();
+    };
+
+    const renderButtons = (
+        <>
+            <TouchableOpacity onPress={exerciseEdit}>
+                <Text style={styles.text}>Edit</Text>
+            </TouchableOpacity>
+            <TouchableOpacity>
+                <Text style={styles.text}>Add to favourites</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={exerciseDelete}>
+                <Text style={styles.text}>Delete</Text>
+            </TouchableOpacity>
+        </>
+    );
 
     return (
         <Modal
-			animationType='fade'
-			transparent={true}
-			visible={exerciseMenu}
-			onRequestClose={() => closeExerciseMenu()}
-			>
-			<TouchableWithoutFeedback onPress={() => closeExerciseMenu()}>
-				<View style={styles.overlay}>
-					<View style={{...styles.container, top: pageY - 20, left: pageX - styles.container.width}}>
-					{renderButtons}
+            animationType="fade"
+            transparent={true}
+            visible={visible}
+            onRequestClose={() => closeExerciseMenu()}
+        >
+            <TouchableWithoutFeedback onPress={() => closeExerciseMenu()}>
+                <View style={styles.overlay}>
+                    <View
+                        style={{
+                            ...styles.container,
+                            top: pageY - 20,
+                            left: pageX - styles.container.width,
+                        }}
+                    >
+                        {renderButtons}
                     </View>
-				</View>
-			</TouchableWithoutFeedback>
-		</Modal>
-    )
-
+                </View>
+            </TouchableWithoutFeedback>
+        </Modal>
+    );
 }
 
 const styles = StyleSheet.create({
-	overlay: {
-		flex: 1,
-		backgroundColor: 'rgba(26, 26, 26, 0.5)',
-		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'center'
-	},
-	container: {
-		position: 'absolute',
-		justifyContent: 'center',
-		width: width * 0.5,
-		padding: 10,
-		backgroundColor: 'rgba(26, 26, 26, 0.95)',
-        borderRadius: 3
-	},
-	text: {
-		color: '#fafafa',
-		lineHeight: 30
-	},
-	
+    overlay: {
+        flex: 1,
+        backgroundColor: "rgba(26, 26, 26, 0.5)",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    container: {
+        position: "absolute",
+        justifyContent: "center",
+        width: width * 0.5,
+        padding: 10,
+        backgroundColor: "rgba(26, 26, 26, 0.95)",
+        borderRadius: 3,
+    },
+    text: {
+        color: "#fafafa",
+        lineHeight: 30,
+    },
 });

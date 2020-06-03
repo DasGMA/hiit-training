@@ -10,7 +10,10 @@ import {
     SET_EXERCISE_MENU_COORDINATES,
     SET_BREAK_DURATION,
     SET_EXERCISE_DURATION,
-    SET_EXERCISE_NAME
+    SET_EXERCISE_NAME,
+    EDIT_EXERCISE,
+    SET_EDIT_EXERCISE,
+    SET_INDEX
 } from '../../Actions/CircuitActions/CircuitActions';
 
 const initialState = {
@@ -31,7 +34,9 @@ const initialState = {
     circuit: {
         exercises: {},
         orderByName: []
-    }
+    },
+    exerciseEdit: false,
+    index: 0
 }
 
 const CircuitReducers = (state = initialState, action) => {
@@ -110,7 +115,9 @@ const CircuitReducers = (state = initialState, action) => {
                 circuit: {
                     exercises: {},
                     orderByName: []
-                }
+                },
+                exerciseEdit: false,
+                index: 0
             }
         case SET_BREAK_DURATION:
             return {
@@ -127,7 +134,21 @@ const CircuitReducers = (state = initialState, action) => {
                 ...state,
                 exerciseName: payload
             }
-
+        case EDIT_EXERCISE:
+            return {
+                ...state,
+                circuit: payload
+            }
+        case SET_EDIT_EXERCISE:
+            return {
+                ...state,
+                exerciseEdit: payload
+            }
+        case SET_INDEX:
+            return {
+                ...state,
+                index: payload
+            }
         default:
             return {
                 ...state
