@@ -8,6 +8,9 @@ export const COUNTDOWN_MODAL = 'COUNTDOWN_MODAL';
 export const RESET_CIRCUIT = 'RESET_CIRCUIT';
 export const EXERCISE_MENU_MODAL = 'EXERCISE_MENU_MODAL';
 export const SET_EXERCISE_MENU_COORDINATES = 'SET_EXERCISE_MENU_COORDINATES';
+export const SET_EXERCISE_NAME = 'SET_EXERCISE_NAME';
+export const SET_EXERCISE_DURATION = 'SET_EXERCISE_DURATION';
+export const SET_BREAK_DURATION = 'SET_BREAK_DURATION';
 
 export const deleteExercise = (exerciseName) => (dispatch, getState) => {
     const {exercises, orderByName} = getState().CircuitReducer.CircuitReducers.circuit;
@@ -77,5 +80,26 @@ export const setExerciseMenuCoordinates = (coordinates) => dispatch => {
     dispatch({
         type: SET_EXERCISE_MENU_COORDINATES,
         payload: coordinates
+    })
+}
+
+export const setExerciseName = (exerciseName) => dispatch => {
+    dispatch({
+        type: SET_EXERCISE_NAME,
+        payload: exerciseName
+    })
+}
+
+export const setExerciseDuration = (exerciseDuration) => dispatch => {
+    dispatch({
+        type: SET_EXERCISE_DURATION,
+        payload: exerciseDuration
+    })
+}
+
+export const setBreakDuration = (breakDuration) => dispatch => {
+    dispatch({
+        type: SET_BREAK_DURATION,
+        payload: breakDuration
     })
 }

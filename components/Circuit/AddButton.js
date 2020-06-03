@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 export default function AddButton(props) {
     return (
         <TouchableOpacity
-            style={!props.bottomText ? styles.containerRow : styles.containerColumn}
+            style={!props.bottomText ? {...styles.containerRow, width: props.size} : styles.containerColumn}
             onPress={props.onPress}
             onLayout={props.onLayout}
         >
@@ -26,7 +26,8 @@ export default function AddButton(props) {
 const styles = StyleSheet.create({
     containerRow: {
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     containerColumn: {
         flexDirection: 'column',

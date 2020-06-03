@@ -1,11 +1,11 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux'; 
 import {View, Text, Modal, TouchableOpacity, TouchableWithoutFeedback, StyleSheet, Dimensions} from 'react-native';
-import { exerciseMenuModal, setExerciseMenuCoordinates } from '../../Redux/Actions/CircuitActions/CircuitActions';
+import { exerciseMenuModal, setExerciseMenuCoordinates, deleteExercise } from '../../Redux/Actions/CircuitActions/CircuitActions';
 
 const {width} = Dimensions.get('screen');
 
-export default function ExerciseMenuModal() {
+export default function ExerciseMenuModal(props) {
     const exerciseMenu = useSelector(
         (state) => state.CircuitReducer.CircuitReducers.exerciseMenuModal
     );
@@ -18,7 +18,24 @@ export default function ExerciseMenuModal() {
     const closeExerciseMenu = () =>  {
         dispatch(exerciseMenuModal());
         dispatch(setExerciseMenuCoordinates({pageX: 0, pageY: 0}));
-    }
+	}
+
+	const exerciseDelete = () => {
+		dispatch(deleteExercise(props.exerciseName));
+		closeExerciseMenu();
+	}
+
+	const renderButtons = <>
+							<TouchableOpacity>
+								<Text style={styles.text}>Edit</Text>
+							</TouchableOpacity>
+							<TouchableOpacity>
+								<Text style={styles.text}>Add to favourites</Text>
+							</TouchableOpacity>
+							<TouchableOpacity onPress={exerciseDelete}>
+								<Text style={styles.text}>Delete</Text>
+							</TouchableOpacity>
+						</>
 
     return (
         <Modal
@@ -29,10 +46,8 @@ export default function ExerciseMenuModal() {
 			>
 			<TouchableWithoutFeedback onPress={() => closeExerciseMenu()}>
 				<View style={styles.overlay}>
-					<View style={{...styles.container, top: pageY, left: pageX - styles.container.width}}>
-					<Text style={styles.text}>Edit</Text>
-                    <Text style={styles.text}>Add to favourites</Text>
-                    <Text style={styles.text}>Delete</Text>
+					<View style={{...styles.container, top: pageY - 20, left: pageX - styles.container.width}}>
+					{renderButtons}
                     </View>
 				</View>
 			</TouchableWithoutFeedback>
@@ -55,11 +70,11 @@ const styles = StyleSheet.create({
 		width: width * 0.5,
 		padding: 10,
 		backgroundColor: 'rgba(26, 26, 26, 0.95)',
-        borderRadius: 3,
-        zIndex: 99999
+        borderRadius: 3
 	},
 	text: {
-		color: '#fafafa'
+		color: '#fafafa',
+		lineHeight: 30
 	},
 	
 });

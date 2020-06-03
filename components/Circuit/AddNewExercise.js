@@ -8,6 +8,7 @@ import StartCountdownButton from './StartCountDownButton';
 export default function AddNewExercise() {
     const dispatch = useDispatch();
     const addExercise = () => dispatch(addExerciseModal());
+    
     return (
         <View style={styles.container}>
             <AddButton 

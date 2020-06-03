@@ -1,28 +1,24 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, Modal, TextInput } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { addExerciseModal, addExercise } from '../../Redux/Actions/CircuitActions/CircuitActions';
+import { addExerciseModal, addExercise, setExerciseDuration, setExerciseName, setBreakDuration } from '../../Redux/Actions/CircuitActions/CircuitActions';
 import AddButton from './AddButton';
 
 export default function AddExerciseModal() {
-    const modalVisible = useSelector(
+    const {timeType, exerciseName, exerciseDuration, breakDuration} = useSelector(
+        (state) => state.CircuitReducer.CircuitReducers
+    );
+    const visible = useSelector(
         (state) => state.CircuitReducer.CircuitReducers.addExerciseModal
     );
-    const timeType = useSelector(
-        (state) => state.CircuitReducer.CircuitReducers.timeType
-    );
-
-    const [exerciseName, setExerciseName] = useState('');
-    const [exerciseDuration, setExerciseDuration] = useState('');
-    const [breakDuration, setBreakDuration] = useState('');
 
     const dispatch = useDispatch();
 
     const closeModal = () => {
         dispatch(addExerciseModal());
-        setExerciseDuration('');
-        setExerciseName('');
-        setBreakDuration('');
+        dispatch(setExerciseDuration(''));
+        dispatch(setExerciseName(''));
+        dispatch(setBreakDuration(''));
     }
 
     const exercise = {
@@ -42,7 +38,7 @@ export default function AddExerciseModal() {
     
     return (
         <Modal
-            visible={modalVisible}
+            visible={visible}
             animationType='slide'
             transparent={false}
             onRequestClose={closeModal}
@@ -54,7 +50,7 @@ export default function AddExerciseModal() {
                         <Text>Exercise name</Text>
                         <TextInput 
                             placeholder='Enter exercise'
-                            onChangeText={(text) => setExerciseName(text)}
+                            onChangeText={(text) => dispatch(setExerciseName(text))}
                             value={exerciseName}
                             placeholderTextColor='#000'
                             style={styles.inputStyle}
@@ -65,7 +61,7 @@ export default function AddExerciseModal() {
                         <TextInput 
                             placeholder={`0 ${timeType}`}
                             keyboardType='numeric'
-                            onChangeText={(text) => setExerciseDuration(text)}
+                            onChangeText={(text) => dispatch(setExerciseDuration(text))}
                             value={exerciseDuration}
                             placeholderTextColor='#000'
                             style={styles.inputStyle}
@@ -76,7 +72,7 @@ export default function AddExerciseModal() {
                         <TextInput 
                             placeholder={`0 ${timeType}`}
                             keyboardType='numeric'
-                            onChangeText={(text) => setBreakDuration(text)}
+                            onChangeText={(text) => dispatch(setBreakDuration(text))}
                             value={breakDuration}
                             placeholderTextColor='#000'
                             style={styles.inputStyle}

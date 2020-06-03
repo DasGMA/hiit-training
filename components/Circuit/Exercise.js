@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { timeConversion } from '../../Helpers/timeConversion';
 import AddButton from './AddButton';
 import { exerciseMenuModal, setExerciseMenuCoordinates } from '../../Redux/Actions/CircuitActions/CircuitActions';
+import ExerciseMenuModal from './ExerciseMenuModal';
 
 export default function Exercise(props) {
     const timeType = useSelector(
@@ -19,10 +20,10 @@ export default function Exercise(props) {
 
     return (
         <>
-        <View style={{alignItems: 'flex-end', padding: 10}}>
+        <View style={{alignItems: 'flex-end'}}>
             <AddButton 
                 name='more'
-                size={30}
+                size={20}
                 onPress={(event) => onPress(event)}
             />
         </View>
@@ -38,6 +39,7 @@ export default function Exercise(props) {
                 </Text>
             </View>
         </View>
+        <ExerciseMenuModal exerciseName={props.exerciseName}/>
         </>
     )
 }
