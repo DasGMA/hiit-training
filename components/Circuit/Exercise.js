@@ -3,20 +3,27 @@ import { View, Text, StyleSheet, ShadowPropTypesIOS } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { timeConversion } from '../../Helpers/timeConversion';
 import AddButton from './AddButton';
-import { exerciseMenuModal, setExerciseMenuCoordinates } from '../../Redux/Actions/CircuitActions/CircuitActions';
+import { exerciseMenuModal, setExerciseMenuCoordinates, setIndex, setExerciseName, setExerciseDuration, setBreakDuration } from '../../Redux/Actions/CircuitActions/CircuitActions';
 import ExerciseMenuModal from './ExerciseMenuModal';
 
 export default function Exercise(props) {
-    const timeType = useSelector(
-        (state) => state.CircuitReducer.CircuitReducers.timeType
+    const {timeType, circuit} = useSelector(
+        (state) => state.CircuitReducer.CircuitReducers
     );
 
     const dispatch = useDispatch();
     const onPress = (event) => {
         const {pageX, pageY} = event.nativeEvent;
+        const index = circuit.orderByName.indexOf(props.exerciseName);
+
         dispatch(exerciseMenuModal());
         dispatch(setExerciseMenuCoordinates({pageX, pageY}));
+        dispatch(setIndex(index));
+        dispatch(setExerciseName(props.exerciseName));
+        dispatch(setExerciseDuration(props.exerciseDuration.toString()));
+        dispatch(setBreakDuration(props.breakDuration.toString()));
     }
+
 
     return (
         <>

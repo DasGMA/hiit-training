@@ -13,12 +13,8 @@ import {
     exerciseMenuModal,
     setExerciseMenuCoordinates,
     deleteExercise,
-    setExerciseName,
-    setExerciseDuration,
-    setBreakDuration,
     addExerciseModal,
-    setEditExercise,
-    setIndex,
+    setEditExercise
 } from "../../Redux/Actions/CircuitActions/CircuitActions";
 
 const { width } = Dimensions.get("screen");
@@ -30,11 +26,6 @@ export default function ExerciseMenuModal(props) {
     const { pageX, pageY } = useSelector(
         (state) => state.CircuitReducer.CircuitReducers.exerciseMenuCoordinates
     );
-    const circuit = useSelector(
-        (state) => state.CircuitReducer.CircuitReducers.circuit
-    );
-
-    const index = circuit.orderByName.indexOf(props.exerciseName);
 
     const dispatch = useDispatch();
 
@@ -46,17 +37,13 @@ export default function ExerciseMenuModal(props) {
     const exerciseDelete = () => {
         dispatch(deleteExercise(props.exerciseName));
         closeExerciseMenu();
-    };
+	};
 
     const exerciseEdit = () => {
         dispatch(setEditExercise(true));
-        dispatch(setExerciseName(props.exerciseName));
-        dispatch(setExerciseDuration(props.exerciseDuration.toString()));
-        dispatch(setBreakDuration(props.breakDuration.toString()));
         dispatch(addExerciseModal());
-        dispatch(setIndex(index));
         closeExerciseMenu();
-    };
+	};
 
     const renderButtons = (
         <>

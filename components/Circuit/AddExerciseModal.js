@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, StyleSheet, Text, Modal, TextInput } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { addExerciseModal, addExercise, setExerciseDuration, setExerciseName, setBreakDuration, editExercise, setEditExercise } from '../../Redux/Actions/CircuitActions/CircuitActions';
@@ -38,12 +38,10 @@ export default function AddExerciseModal() {
     }
 
     const saveEditedExercise = () => {
-         console.log('EDITING')
         if (exerciseName === '' || 
             exerciseDuration === '' ||
             breakDuration === '') return;
         dispatch(editExercise(index, exercise));
-        dispatch(setEditExercise(false));
         closeModal();
     }
     
