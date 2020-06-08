@@ -14,7 +14,10 @@ import {
     setExerciseMenuCoordinates,
     deleteExercise,
     addExerciseModal,
-    setEditExercise
+    setEditExercise,
+	setExerciseDuration,
+	setExerciseName,
+	setBreakDuration
 } from "../../Redux/Actions/CircuitActions/CircuitActions";
 
 const { width } = Dimensions.get("screen");
@@ -35,7 +38,10 @@ export default function ExerciseMenuModal(props) {
     };
 
     const exerciseDelete = () => {
-        dispatch(deleteExercise(props.exerciseName));
+		dispatch(deleteExercise(props.exerciseName));
+		dispatch(setExerciseDuration(''));
+		dispatch(setExerciseName(''));
+		dispatch(setBreakDuration(''));
         closeExerciseMenu();
 	};
 
